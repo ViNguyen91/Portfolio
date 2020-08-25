@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Create a new criterium</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+    <h1>Create a new criterium</h1>
+        <form action="#" th:action="@{/books/add}" th:object="${criterium}" method="post">
+            <p>Title: <input type="text" th:field="*{title}" /></p>
+            <p>
+                Author:
+                <select th:field="*{category}">
+                    <option th:each="category : ${authorList}" th:value="${category.authorId}" th:text="${category.name}"></option>
+                </select>
+            </p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+    <!--h1 form manga-->
+    </body>
+</html>
