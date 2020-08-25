@@ -10,36 +10,66 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer copyId;
+    private Integer reviewId;
 
-    private Boolean available = true;
+    private String description;
+    private String priority;
+    private String gitCommit;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "bookId", referencedColumnName = "bookId", nullable = false)
+    @JoinColumn(name = "criteriumId", referencedColumnName = "criteriumId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Criterium criterium;
 
-    public Integer getCopyId() {
-        return copyId;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Target target;
+
+    public Integer getReviewId() {
+        return reviewId;
     }
 
-    public void setCopyId(Integer copyId) {
-        this.copyId = copyId;
+    public void setReviewId(Integer reviewId) {
+        this.reviewId = reviewId;
     }
 
-    public Boolean getAvailable() {
-        return available;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Criterium getBook() {
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public Criterium getCriterium() {
         return criterium;
     }
 
-    public void setBook(Criterium criterium) {
+    public void setCriterium(Criterium criterium) {
         this.criterium = criterium;
+    }
+
+    public Target getTarget() {
+        return target;
+    }
+
+    public void setTarget(Target target) {
+        this.target = target;
+    }
+
+    public String getGitCommit() {
+        return gitCommit;
+    }
+
+    public void setGitCommit(String gitCommit) {
+        this.gitCommit = gitCommit;
     }
 }

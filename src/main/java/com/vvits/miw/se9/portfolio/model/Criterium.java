@@ -23,28 +23,59 @@ public class Criterium {
 
     @OneToMany( cascade = CascadeType.ALL,
                 fetch = FetchType.LAZY,
-                mappedBy = "book")
-    private List<Target> copies;
+                mappedBy = "target")
+    private List<Target> targets;
 
-    public int getNoCopies(){
-        return copies.size();
-    }
-
-    public Category getAuthor() {
-        return category;
-    }
-
-    public void setAuthor(Category category) {
-        this.category = category;
-    }
+    @OneToMany( cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "review")
+    private List<Review> reviews;
 
     public Integer getCriteriumId() {
         return criteriumId;
     }
 
-    public void setCriteriumId(Integer bookId) {
-        this.criteriumId = bookId;
+    public void setCriteriumId(Integer criteriumId) {
+        this.criteriumId = criteriumId;
     }
 
+    public int getPoints() {
+        return points;
+    }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Target> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(List<Target> targets) {
+        this.targets = targets;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 }

@@ -4,42 +4,64 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Target {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer copyId;
+    private Integer targetId;
 
-    private Boolean available = true;
+    private String description;
+    private Date dateCreated;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "bookId", referencedColumnName = "bookId", nullable = false)
+    @JoinColumn(name = "criteriumId", referencedColumnName = "criteriumId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Criterium criterium;
 
-    public Integer getCopyId() {
-        return copyId;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Review review;
+
+    public Integer getTargetId() {
+        return targetId;
     }
 
-    public void setCopyId(Integer copyId) {
-        this.copyId = copyId;
+    public void setTargetId(Integer targetId) {
+        this.targetId = targetId;
     }
 
-    public Boolean getAvailable() {
-        return available;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Criterium getBook() {
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Criterium getCriterium() {
         return criterium;
     }
 
-    public void setBook(Criterium criterium) {
+    public void setCriterium(Criterium criterium) {
         this.criterium = criterium;
+    }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
     }
 }

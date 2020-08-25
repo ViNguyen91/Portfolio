@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Criterium Overview</title>
+        <link rel="stylesheet" type="text/css" href="portfolio.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1>Criteria</h1>
+        <table>
+            <tr>
+                <th>Point:</th>
+                <th>Description:</th>
+                <th>Category: </th>
+                <th>Target</th>
+                <th>Add new target</th>
+                <th>Review</th>
+                <th>Add new review</th>
+            </tr>
+            <tr th:each="criterium: ${allCriteria}">
+                <td th:text="${criterium.points}" />
+                <td th:text="${criterium.description}" />
+                <td th:text="${criterium.category.name}" />
+                <td th:text="${criterium.targets}" />
+                <td><a th:href="@{/target/add/{criteriumId}(criteriumId=${criterium.criteriumId})}">Add</a></td>
+                <td th:text="${criterium.reviews}" />
+                <td><a th:href="@{/review/add/{criteriumId}(criteriumId=${criterium.criteriumId})}">Add</a></td>
+            </tr>
+        </table>
+
+        <div>
+            <a th:href="@{/criteria/add}">Add criterium</a>
+        </div>
+
+        <div>
+            <a th:href="@{/category}">Add category</a>
+        </div>
+    </body>
+</html>

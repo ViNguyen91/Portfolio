@@ -6,12 +6,12 @@
     </head>
     <body>
     <h1>Create a new criterium</h1>
-        <form action="#" th:action="@{/books/add}" th:object="${criterium}" method="post">
-            <p>Title: <input type="text" th:field="*{title}" /></p>
-            <p>
-                Author:
+        <form action="#" th:action="@{/criteria/add}" th:object="${criterium}" method="post">
+            <p>Point (0, 1, 2, 3): <input type="text" th:field="*{points}" /></p>
+            <p>Description: <input type="text" th:field="*{description}" /></p>
+            <p>Category:
                 <select th:field="*{category}">
-                    <option th:each="category : ${authorList}" th:value="${category.authorId}" th:text="${category.name}"></option>
+                    <option th:each="category : ${categoryList}" th:value="${category.categoryId}" th:text="${category.name}"></option>
                 </select>
             </p>
             <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>

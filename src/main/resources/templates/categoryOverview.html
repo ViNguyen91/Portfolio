@@ -1,27 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Getting Started: Handling Form Submission</title>
-        <link rel="stylesheet" type="text/css" href="library.css" />
+        <title>Category Overview</title>
+        <link rel="stylesheet" type="text/css" href="portfolio.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <h1>Authors</h1>
+        <h1>Categories</h1>
 
-        <h2>Overview of existing authors</h2>
+        <h2>Overview of existing categories</h2>
 
         <table>
             <tr>
-                <th>Author name</th>
+                <th>Category name</th>
             </tr>
-            <tr th:each="category: ${allAuthors}">
+            <tr th:each="category: ${allCategories}">
                 <td th:text="${category.name}" />
             </tr>
         </table>
 
         <h2>Create a new category</h2>
-        <form action="#" th:action="@{/category/new}" th:object="${category}" method="post">
-            <p>Author name: <input type="text" th:field="*{name}" /></p>
+        <form action="#" th:action="@{/category/add}" th:object="${category}" method="post">
+            <p>Category name: <input type="text" th:field="*{name}" /></p>
             <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
     </body>
