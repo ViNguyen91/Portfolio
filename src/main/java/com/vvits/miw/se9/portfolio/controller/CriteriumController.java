@@ -1,5 +1,6 @@
 package com.vvits.miw.se9.portfolio.controller;
 
+import com.vvits.miw.se9.portfolio.model.Category;
 import com.vvits.miw.se9.portfolio.model.Criterium;
 import com.vvits.miw.se9.portfolio.repository.CategoryRepository;
 import com.vvits.miw.se9.portfolio.repository.CriteriumRepository;
@@ -9,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @Controller
 public class CriteriumController {
@@ -23,9 +27,19 @@ public class CriteriumController {
     @GetMapping({"/criteria"})
     protected String showCriteria(Model model){
         model.addAttribute("allCriteria", criteriumRepository.findAll());
-
         return "criteriumOverview";
     }
+
+    /*@GetMapping("/criteria/{categoryId}")
+    protected String showCriterium(@PathVariable("categoryId") final Integer categoryId, BindingResult result, Model model){
+        Optional<Criterium> criterium = criteriumRepository.findByCategoryId(categoryId);
+        if (criterium.isPresent()) {
+            model.addAttribute("criteriaByCategory", criteriumRepository.findByCategoryId(categoryId));
+            return "criteriumOverview";
+        } else {
+            return "redirect:/category";
+        }
+    }*/
 
     @GetMapping("/criteria/add")
     protected String showCriteriaForm(Model model){
