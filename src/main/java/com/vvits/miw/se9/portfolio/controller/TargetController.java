@@ -1,6 +1,5 @@
 package com.vvits.miw.se9.portfolio.controller;
 
-import com.vvits.miw.se9.portfolio.model.Category;
 import com.vvits.miw.se9.portfolio.model.Criterium;
 import com.vvits.miw.se9.portfolio.model.Target;
 import com.vvits.miw.se9.portfolio.repository.CriteriumRepository;
@@ -26,28 +25,33 @@ public class TargetController {
     TargetRepository targetRepository;
 
     @GetMapping("/target/add/{criteriumId}")
-    protected String showTagerForm(@PathVariable("criteriumId") final Integer criteriumId, Model model){
+    protected String showTagerForm(@PathVariable("criteriumId") final Integer criteriumId, Model model) {
         Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
-        if(criterium.isPresent()){
+        if (criterium.isPresent()) {
             Criterium c = criterium.get();
-            Target t = new Target();
-            t.setCriterium(c);
-            model.addAttribute("criterium", t);
-            return "targetOverview";
-        }else {
+            Target target = new Target();
+            target.setCriterium(c);
+            model.addAttribute("target", target);
+            model.addAttribute("criteriumId", criteriumId);
+            return "targetForm";
+        } else {
             return "redirect:/category";
         }
     }
 
 
     @PostMapping("/target/add/{criteriumId}")
-    protected String saveOrUpdateTarget(@PathVariable("criteriumId") final Integer criteriumId,
-                                        BindingResult result, @ModelAttribute("target") Target target) {
+    protected String saveOrUpdateReview(@PathVariable("criteriumId") final Integer criteriumId, @ModelAttribute("target") Target target, BindingResult result) {
         if (result.hasErrors()) {
+//            return "redirect:/category";
             return "targetForm";
         } else {
-            targetRepository.save(target);
-            return "redirect:/criteria";
+            Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
+            if (criterium.isPresent()) {
+                target.setCriterium(criterium.get());
+                targetRepository.save(target);
+            }
+            return "redirect:/criteria/" + criteriumId;
         }
     }
 

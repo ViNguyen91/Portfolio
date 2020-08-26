@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>Create a new target</h1>
-<form action="#" th:action="@{/target/add/{criteriumId}}" th:object="${target}" method="post">
+<form action="#" th:action="@{/target/add/{criteriumId}(criteriumId=${criteriumId})}" th:object="${target}" method="post">
     <p>Description: <input type="text" th:field="*{description}" /></p>
-    <p>Target date: <input type="text" th:field="*{dateCreated}" /></p>
+<!--    <p>Target date: <input type="text" th:field="*{dateCreated}" /></p> TODO FIX IT-->
     <!--
     <p>Criterium:
         <select th:field="*{criterium}">

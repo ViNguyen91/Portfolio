@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>Create a new review</h1>
-<form action="#" th:action="@{/review/add/{criteriumId}}" th:object="${review}" method="post">
+<td th:text="${review.criterium.getCriteriumId()}" />
+<form action="#" th:action="@{/review/add/{criteriumId}(criteriumId=${criteriumId})}" th:object="${review}" method="post">
     <p>Description: <input type="text" th:field="*{description}" /></p>
     <p>Priority: <input type="text" th:field="*{priority}" /></p>
     <p>Link for Git commit: <input type="text" th:field="*{gitCommit}" /></p>

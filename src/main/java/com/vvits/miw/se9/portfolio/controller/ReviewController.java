@@ -2,7 +2,6 @@ package com.vvits.miw.se9.portfolio.controller;
 
 import com.vvits.miw.se9.portfolio.model.Criterium;
 import com.vvits.miw.se9.portfolio.model.Review;
-import com.vvits.miw.se9.portfolio.model.Target;
 import com.vvits.miw.se9.portfolio.repository.CriteriumRepository;
 import com.vvits.miw.se9.portfolio.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +27,28 @@ public class ReviewController {
     @GetMapping("/review/add/{criteriumId}")
     protected String addReview(@PathVariable("criteriumId") final Integer criteriumId, Model model) {
         Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
-        if (criterium.isPresent()){
+        if (criterium.isPresent()) {
             Review review = new Review();
             review.setCriterium(criterium.get());
-            reviewRepository.save(review);
+            model.addAttribute("review", review);
+            model.addAttribute("criteriumId", criteriumId);
+            return "reviewForm";
         }
-        return "reviewForm";
+        return "redirect:/criteria";
     }
 
-    @PostMapping({"/review/add"})
-    protected String saveOrUpdateReview(@ModelAttribute("review") Review review, BindingResult result){
+    @PostMapping("/review/add/{criteriumId}")
+    protected String saveOrUpdateReview(@PathVariable("criteriumId") final Integer criteriumId, @ModelAttribute("review") Review review, BindingResult result) {
         if (result.hasErrors()) {
             return "reviewForm";
         } else {
-            reviewRepository.save(review);
-            return "redirect:/criteria";
+            Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
+            if (criterium.isPresent()) {
+                review.setCriterium(criterium.get());
+                reviewRepository.save(review);
+            }
+
+            return "redirect:/criteria/" + criteriumId;
         }
     }
 }
