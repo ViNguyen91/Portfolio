@@ -25,15 +25,22 @@ public class TargetController {
     @Autowired
     TargetRepository targetRepository;
 
-    @PostMapping("/target/add/{criteriumId}")
-    protected String saveOrUpdateTarget(@PathVariable("criteriumId") final Integer criteriumId,
-                                        BindingResult result, @ModelAttribute("target") Target target) {
+    @GetMapping("/target/add")
+    protected String showTargetForm(Model model){
+        model.addAttribute("target", new Target());
+        model.addAttribute("targetList", targetRepository.findAll());
+        return "targetForm";
+    }
+
+    @PostMapping("/target/add")
+    protected String saveOrUpdateTarget(BindingResult result, @ModelAttribute("target") Target target) {
         if (result.hasErrors()) {
             return "targetForm";
         } else {
             targetRepository.save(target);
-            return "redirect:/criteria";
+            return "redirect:/criteria/" + target.getCriterium().getCriteriumId();
         }
     }
+
 
 }

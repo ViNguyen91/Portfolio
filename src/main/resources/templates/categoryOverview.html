@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Category Overview</title>
+        <title >Category Overview</title>
         <link rel="stylesheet" type="text/css" href="portfolio.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <h1>Categories</h1>
+        <h1 style="text-align:center;">Categories</h1>
 
         <h2>Overview of existing categories</h2>
         <table>
@@ -16,6 +16,7 @@
             <tr th:each="category: ${allCategories}">
                 <td><a th:href="@{/criteria/{categoryId}(categoryId=${category.categoryId})}">
                     <span th:text="${category.name}"></span></a></td>
+                <td><a th:href="@{/category/delete/{categoryId}(categoryId=${category.categoryId})}">Delete</a></td>
             </tr>
         </table>
 
@@ -25,12 +26,7 @@
             <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
-        <h2>Delete a category</h2>
-        <tr th:each="category: ${allCategories}">
-            <td th:text="${category.name}" />
-            <td><a th:href="@{/category/delete/{categoryId}(categoryId=${category.categoryId})}">Delete</a></td>
-            <br>
-        </tr>
+
 
     </body>
 </html>
