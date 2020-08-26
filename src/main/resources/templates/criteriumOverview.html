@@ -6,25 +6,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <h1>Criteria</h1>
+    <h1 th:text="${category.name}">Criteria voor Category: </h1>
         <table>
             <tr>
                 <th>Category: </th>
                 <th>Point:</th>
                 <th>Description:</th>
                 <th>Target</th>
-                <th>Add new target</th>
+                <th>-</th>
                 <th>Review</th>
-                <th>Add new review</th>
+                <th>-</th>
+                <th>Delete</th>
             </tr>
-            <tr th:each="criterium: ${allCriteria}">
+            <tr th:each="criterium: ${criteriaByCategory}">
                 <td th:text="${criterium.category.name}" />
                 <td th:text="${criterium.points}" />
                 <td th:text="${criterium.description}" />
                 <td th:text="${criterium.targets}" />
-                <td><a th:href="@{/target/add/{criteriumId}(criteriumId=${criterium.criteriumId})}">Add</a></td>
+                <td><a th:href="@{/target}">Add new target</a></td>
                 <td th:text="${criterium.reviews}" />
-                <td><a th:href="@{/review/add/{criteriumId}(criteriumId=${criterium.criteriumId})}">Add</a></td>
+                <td><a th:href="@{/review/add}">Add new review</a></td>
             </tr>
         </table>
 

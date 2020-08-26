@@ -47,21 +47,20 @@ public class CategoryController {
         }
     }
 
-    /* why doesnt this work?
     @GetMapping("/category/delete/{categoryId}")
-    protected String deleteCategory(@PathVariable("categoryId") final Integer categoryId, BindingResult result, Model model){
+    protected String deleteCategory(@PathVariable("categoryId") final Integer categoryId){
         Optional<Category> category = categoryRepository.findById(categoryId);
         if (category.isPresent()) {
             categoryRepository.deleteById(categoryId);
-            return "categoryOverview";
+            return "redirect:/category";
         } else {
             return "redirect:/category";
         }
-    }*/
+    }
 
-    @GetMapping("/category/delete/{categoryId}")
+    /*@GetMapping("/category/delete/{categoryId}")
     protected String deleteCategory(@ModelAttribute("category")Category category, BindingResult result){
         categoryRepository.deleteById(category.getCategoryId());
         return "redirect:/category";
-    }
+    }*/
 }

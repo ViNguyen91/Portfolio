@@ -24,22 +24,22 @@ public class CriteriumController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @GetMapping({"/criteria"})
+    /*@GetMapping({"/criteria"})
     protected String showCriteria(Model model){
         model.addAttribute("allCriteria", criteriumRepository.findAll());
         return "criteriumOverview";
-    }
+    }*/
 
-    /*@GetMapping("/criteria/{categoryId}")
-    protected String showCriterium(@PathVariable("categoryId") final Integer categoryId, BindingResult result, Model model){
-        Optional<Criterium> criterium = criteriumRepository.findByCategoryId(categoryId);
-        if (criterium.isPresent()) {
-            model.addAttribute("criteriaByCategory", criteriumRepository.findByCategoryId(categoryId));
+    @GetMapping("/criteria/{categoryId}")
+    protected String showCriteria(@PathVariable("categoryId") final Integer categoryId, Model model){
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            model.addAttribute("criteriaByCategory", category.get().getCriteria());
             return "criteriumOverview";
         } else {
             return "redirect:/category";
         }
-    }*/
+    }
 
     @GetMapping("/criteria/add")
     protected String showCriteriaForm(Model model){
@@ -58,4 +58,13 @@ public class CriteriumController {
         }
     }
 
+    @GetMapping("/criteria/delete/{criteriumId}")
+    protected String deleteCategory(@ModelAttribute("category")Category category, BindingResult result){
+        try {
+            categoryRepository.deleteById(category.getCategoryId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/category";
+    }
 }

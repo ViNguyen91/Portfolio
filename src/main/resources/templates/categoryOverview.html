@@ -14,8 +14,8 @@
                 <th>Category name: </th>
             </tr>
             <tr th:each="category: ${allCategories}">
-                <td th:text="${category.name}" />
-                <td><a th:href="@{/criteria/{categoryId}(categoryId=${category.categoryId})}">Show all criteria</a></td>
+                <td><a th:href="@{/category/{categoryId}(categoryId=${category.categoryId})}">
+                    <span th:text="${category.name}"></span></a></td>
             </tr>
         </table>
 
@@ -32,9 +32,5 @@
             <br>
         </tr>
 
-        <h2>Show all categories and criteria</h2>
-        <div>
-            <a th:href="@{/criteria}">Show all Criteria</a>
-        </div>
     </body>
 </html>
