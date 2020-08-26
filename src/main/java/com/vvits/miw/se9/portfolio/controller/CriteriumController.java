@@ -29,6 +29,7 @@ public class CriteriumController {
         Optional<Category> category = categoryRepository.findById(categoryId);
         if (category.isPresent()) {
             model.addAttribute("criteriaByCategory", category.get().getCriteria());
+            model.addAttribute("categoryId", categoryId);
             return "criteriumOverview";
         } else {
             return "redirect:/category";
@@ -39,6 +40,14 @@ public class CriteriumController {
     protected String showCriteriaForm(Model model){
         model.addAttribute("criterium", new Criterium());
         model.addAttribute("categoryList", categoryRepository.findAll());
+        return "criteriumForm";
+    }
+
+    @GetMapping("/criteria/{categoryId}/add")
+    protected String showCriteriaForm2(@PathVariable("categoryId") final Integer categoryId, Model model){
+        model.addAttribute("criterium", new Criterium());
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        model.addAttribute("categoryList", (category.isPresent()?category.get():null));
         return "criteriumForm";
     }
 

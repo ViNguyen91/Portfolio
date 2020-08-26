@@ -25,6 +25,21 @@ public class TargetController {
     @Autowired
     TargetRepository targetRepository;
 
+    @GetMapping("/target/add/{criteriumId}")
+    protected String showTagerForm(@PathVariable("criteriumId") final Integer criteriumId, Model model){
+        Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
+        if(criterium.isPresent()){
+            Criterium c = criterium.get();
+            Target t = new Target();
+            t.setCriterium(c);
+            model.addAttribute("criterium", t);
+            return "targetOverview";
+        }else {
+            return "redirect:/category";
+        }
+    }
+
+
     @PostMapping("/target/add/{criteriumId}")
     protected String saveOrUpdateTarget(@PathVariable("criteriumId") final Integer criteriumId,
                                         BindingResult result, @ModelAttribute("target") Target target) {
