@@ -14,7 +14,7 @@ public class Category {
 
     @OneToMany( cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
-            mappedBy = "criterium")
+            mappedBy = "category")
     private List<Criterium> criteria;
 
 

@@ -23,12 +23,12 @@ public class Criterium {
 
     @OneToMany( cascade = CascadeType.ALL,
                 fetch = FetchType.LAZY,
-                mappedBy = "target")
+                mappedBy = "criterium")
     private List<Target> targets;
 
     @OneToMany( cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
-            mappedBy = "review")
+            mappedBy = "criterium")
     private List<Review> reviews;
 
     public Integer getCriteriumId() {

@@ -20,9 +20,10 @@ public class CriteriumController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @GetMapping({"/", "/criteria"})
+    @GetMapping({"/criteria"})
     protected String showCriteria(Model model){
         model.addAttribute("allCriteria", criteriumRepository.findAll());
+
         return "criteriumOverview";
     }
 
@@ -33,7 +34,7 @@ public class CriteriumController {
         return "criteriumForm";
     }
 
-    @PostMapping({"/Criteria/add"})
+    @PostMapping({"/criteria/add"})
     protected String saveOrUpdateCriterium(@ModelAttribute("criterium") Criterium criterium, BindingResult result){
         if (result.hasErrors()) {
             return "criteriumForm";

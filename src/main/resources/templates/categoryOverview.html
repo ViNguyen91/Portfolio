@@ -24,5 +24,9 @@
             <p>Category name: <input type="text" th:field="*{name}" /></p>
             <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
+
+        <div>
+            <a th:href="@{/category/add}">Add category</a>
+        </div>
     </body>
 </html>

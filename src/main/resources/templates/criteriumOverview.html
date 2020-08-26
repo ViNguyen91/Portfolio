@@ -9,18 +9,18 @@
         <h1>Criteria</h1>
         <table>
             <tr>
+                <th>Category: </th>
                 <th>Point:</th>
                 <th>Description:</th>
-                <th>Category: </th>
                 <th>Target</th>
                 <th>Add new target</th>
                 <th>Review</th>
                 <th>Add new review</th>
             </tr>
             <tr th:each="criterium: ${allCriteria}">
+                <td th:text="${criterium.category.name}" />
                 <td th:text="${criterium.points}" />
                 <td th:text="${criterium.description}" />
-                <td th:text="${criterium.category.name}" />
                 <td th:text="${criterium.targets}" />
                 <td><a th:href="@{/target/add/{criteriumId}(criteriumId=${criterium.criteriumId})}">Add</a></td>
                 <td th:text="${criterium.reviews}" />
