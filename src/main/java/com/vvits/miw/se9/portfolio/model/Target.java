@@ -14,6 +14,7 @@ public class Target {
     private Integer targetId;
 
     private String description;
+
     private Date dateCreated;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -21,7 +22,7 @@ public class Target {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Criterium criterium;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, mappedBy = "criterium")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Review review;
 

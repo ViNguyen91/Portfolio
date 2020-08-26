@@ -14,7 +14,7 @@
                 <th>Category name: </th>
             </tr>
             <tr th:each="category: ${allCategories}">
-                <td><a th:href="@{/category/{categoryId}(categoryId=${category.categoryId})}">
+                <td><a th:href="@{/criteria/{categoryId}(categoryId=${category.categoryId})}">
                     <span th:text="${category.name}"></span></a></td>
             </tr>
         </table>

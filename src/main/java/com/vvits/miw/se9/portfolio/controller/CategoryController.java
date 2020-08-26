@@ -52,10 +52,8 @@ public class CategoryController {
         Optional<Category> category = categoryRepository.findById(categoryId);
         if (category.isPresent()) {
             categoryRepository.deleteById(categoryId);
-            return "redirect:/category";
-        } else {
-            return "redirect:/category";
         }
+        return "redirect:/category";
     }
 
     /*@GetMapping("/category/delete/{categoryId}")

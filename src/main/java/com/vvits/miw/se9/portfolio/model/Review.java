@@ -13,7 +13,9 @@ public class Review {
     private Integer reviewId;
 
     private String description;
+
     private String priority;
+
     private String gitCommit;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -21,7 +23,7 @@ public class Review {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Criterium criterium;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, mappedBy = "criterium")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Target target;
 

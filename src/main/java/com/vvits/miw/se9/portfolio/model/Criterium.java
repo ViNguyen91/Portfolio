@@ -31,6 +31,18 @@ public class Criterium {
             mappedBy = "criterium")
     private List<Review> reviews;
 
+    public Criterium() {
+    }
+
+    public Criterium(Integer criteriumId, int points, String description, Category category, List<Target> targets, List<Review> reviews) {
+        this.criteriumId = criteriumId;
+        this.points = points;
+        this.description = description;
+        this.category = category;
+        this.targets = targets;
+        this.reviews = reviews;
+    }
+
     public Integer getCriteriumId() {
         return criteriumId;
     }

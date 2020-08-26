@@ -6,35 +6,37 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-    <h1 th:text="${category.name}">Criteria voor Category: </h1>
+    <h1>All criteria for category:</h1>
         <table>
             <tr>
-                <th>Category: </th>
-                <th>Point:</th>
-                <th>Description:</th>
-                <th>Target</th>
+                <th>Category- </th>
+                <th>Point- </th>
+                <th>Criterium description- </th>
+                <th>Targets- </th>
                 <th>-</th>
-                <th>Review</th>
+                <th>Reviews- </th>
                 <th>-</th>
-                <th>Delete</th>
+                <th>-</th>
             </tr>
             <tr th:each="criterium: ${criteriaByCategory}">
                 <td th:text="${criterium.category.name}" />
                 <td th:text="${criterium.points}" />
                 <td th:text="${criterium.description}" />
                 <td th:text="${criterium.targets}" />
-                <td><a th:href="@{/target}">Add new target</a></td>
+                <td><a th:href="@{/target/add/{criteriumId}(criteriumId=${criterium.criteriumId})}" class="button">Add target</a></td>
                 <td th:text="${criterium.reviews}" />
-                <td><a th:href="@{/review/add}">Add new review</a></td>
+                <td><a th:href="@{/review/add/{criteriumId}(criteriumId=${criterium.criteriumId})}" class="button">Add review</a></td>
+                <td><a th:href="@{/criteria/delete/{criteriumId}(criteriumId=${criterium.criteriumId})}" class="button">Delete</a></td>
             </tr>
         </table>
 
-        <div>
-            <a th:href="@{/category}">Add category</a>
-        </div>
-        <div>
-            <a th:href="@{/criteria/add}">Add criterium</a>
-        </div>
+    <div>
+        <a th:href="@{/criteria/add}">Add more criteria</a>
+    </div>
+
+    <div>
+        <a th:href="@{/category}">Show all categories</a>
+    </div>
 
     </body>
 </html>
