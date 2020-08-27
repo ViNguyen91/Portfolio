@@ -1,9 +1,7 @@
 package com.vvits.miw.se9.portfolio.controller;
 
-import com.vvits.miw.se9.portfolio.model.Category;
 import com.vvits.miw.se9.portfolio.model.Criterium;
 import com.vvits.miw.se9.portfolio.model.Review;
-import com.vvits.miw.se9.portfolio.model.Target;
 import com.vvits.miw.se9.portfolio.repository.CriteriumRepository;
 import com.vvits.miw.se9.portfolio.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +25,12 @@ public class ReviewController {
     ReviewRepository reviewRepository;
 
     @GetMapping("/review/{criteriumId}")
-    protected String showCriteria(@PathVariable("criteriumId") final Integer criteriumId, Model model){
+    protected String showReviews(@PathVariable("criteriumId") final Integer criteriumId, Model model){
         Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
         if (criterium.isPresent()) {
             model.addAttribute("reviewsByCriterium", criterium.get().getReviews());
             model.addAttribute("criteriumId", criteriumId);
-            return "criteriumOverview";
+            return "reviewOverview";
         } else {
             return "redirect:/criteria/" + criterium.get().getCategory().getCategoryId();
         }
@@ -49,7 +47,7 @@ public class ReviewController {
             model.addAttribute("targetsByReview", review.getTarget());
             return "reviewForm";
         }
-            return "redirect:/criteria/" + criterium.get().getCategory().getCategoryId();
+            return "redirect:/criteria/{categoryId}";
     }
 
     @PostMapping("/review/add/{criteriumId}")
@@ -63,7 +61,7 @@ public class ReviewController {
                 review.setCriterium(criterium.get());
                 reviewRepository.save(review);
             }
-            return "redirect:/criteria/" + criteriumId;
+            return "redirect:/review/" + criteriumId;
         }
     }
 
@@ -72,6 +70,7 @@ public class ReviewController {
         Optional<Review> review = reviewRepository.findById(reviewId);
         if (review.isPresent()) {
             reviewRepository.deleteById(reviewId);
+            return "reviewOverview";
         }
         return "redirect:/review/" + review.get().getCriterium().getCriteriumId();
     }

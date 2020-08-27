@@ -32,7 +32,7 @@ public class TargetController {
             model.addAttribute("criteriumId", criteriumId);
             return "targetOverview";
         } else {
-            return "redirect:/criteria/{categoryId}";
+            return "redirect:/criteria/" + criterium.get().getCategory().getCategoryId();
         }
     }
 
@@ -61,7 +61,7 @@ public class TargetController {
                 target.setCriterium(criterium.get());
                 targetRepository.save(target);
             }
-            return "redirect:/category";
+            return "redirect:/target/" + criteriumId;
         }
     }
 
@@ -72,7 +72,7 @@ public class TargetController {
             targetRepository.deleteById(targetId);
             return "targetOverview";
         }
-        return "forward:/criteria/" + target.get().getCriterium().getCriteriumId();
+        return "forward:/target/" + target.get().getCriterium().getCriteriumId();
     }
 
 }

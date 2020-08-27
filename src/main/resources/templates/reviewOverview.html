@@ -9,21 +9,21 @@
         <th>Description - </th>
         <th>Priority - </th>
         <th>Git Commit Link </th>
-        <th>Target </th>
+        <!-- <th>Target </th> -->
         <th> </th>
     </tr>
     <tr th:each="review: ${reviewsByCriterium}">
         <td th:text="${review.criterium.points}" />
         <td th:text="${review.priority}" />
         <td th:text="${review.gitCommit}" />
-        <!-- show target that that belongs to this review -->
-        <td th:text="${review.target.description}" />
+        <!-- show target that that belongs to this review (optional)
+        <td th:text="${review.target.description}" />-->
         <td><a th:href="@{/review/delete/{reviewId}(reviewId=${review.reviewId})}" class="button">Delete</a></td>
     </tr>
 </table>
 
 <div>
-    <a th:href="@{/review/add/{criteriumId}}">Add more reviews</a> <!-- werkt niet -->
+    <a th:href="@{/review/add/{criteriumId}(criteriumId=${criteriumId})}">Add more reviews</a>
 </div>
 
 <div>

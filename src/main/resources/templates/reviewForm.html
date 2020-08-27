@@ -6,18 +6,20 @@
 </head>
 <body>
 <h1>Create a new review</h1>
-<td th:text="${review.criterium.getCriteriumId()}" />
 <form action="#" th:action="@{/review/add/{criteriumId}(criteriumId=${criteriumId})}" th:object="${review}" method="post">
     <p>Description: <input type="text" th:field="*{description}" /></p>
     <p>Priority: <input type="text" th:field="*{priority}" /></p>
     <p>Link for Git commit: <input type="text" th:field="*{gitCommit}" /></p>
+
+    <!--
     <p>Target:
         <select th:field="*{target}">
-            <option th:each="target : ${targetsByReview}" th:value="${target.targetId}"
-                    th:text="${target.points}"></option>
+            <option th:each="target : ${targetsByReview}" th:value="${review.target.targetId}"
+                    th:text="${review.target.description}"></option>
         </select>
-    <p>
-    <input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+    -->
+    <input type="submit" value="Submit" /> <input type="reset" value="Reset" />
 </form>
 </body>
 </html>
