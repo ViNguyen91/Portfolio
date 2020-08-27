@@ -27,6 +27,18 @@ public class Review {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Target target;
 
+    public Review() {
+    }
+
+    public Review(Integer reviewId, String description, String priority, String gitCommit, Criterium criterium, Target target) {
+        this.reviewId = reviewId;
+        this.description = description;
+        this.priority = priority;
+        this.gitCommit = gitCommit;
+        this.criterium = criterium;
+        this.target = target;
+    }
+
     public Integer getReviewId() {
         return reviewId;
     }

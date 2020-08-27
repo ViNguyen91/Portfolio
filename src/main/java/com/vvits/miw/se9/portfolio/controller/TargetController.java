@@ -1,6 +1,5 @@
 package com.vvits.miw.se9.portfolio.controller;
 
-import com.vvits.miw.se9.portfolio.model.Category;
 import com.vvits.miw.se9.portfolio.model.Criterium;
 import com.vvits.miw.se9.portfolio.model.Target;
 import com.vvits.miw.se9.portfolio.repository.CriteriumRepository;
@@ -33,7 +32,7 @@ public class TargetController {
             model.addAttribute("criteriumId", criteriumId);
             return "targetOverview";
         } else {
-            return "redirect:/criteria/{categoryId}" ;
+            return "redirect:/criteria/{categoryId}";
         }
     }
 
@@ -44,20 +43,25 @@ public class TargetController {
             Target target = new Target();
             target.setCriterium(criterium.get());
             model.addAttribute("target", target);
+            model.addAttribute("criteriumId", criteriumId);
             return "targetForm";
         }else {
-            return "redirect:/category";
+            return "redirect:/criteria/{categoryId}";
         }
     }
 
     @PostMapping("/target/add/{criteriumId}")
     protected String saveOrUpdateTarget(@PathVariable("criteriumId") final Integer criteriumId,
-                                        BindingResult result, @ModelAttribute("target") Target target) {
+                                        @ModelAttribute("target") Target target, BindingResult result) {
         if (result.hasErrors()) {
             return "targetForm";
         } else {
-            targetRepository.save(target);
-            return "redirect:/criteria";
+            Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
+            if(criterium.isPresent()) {
+                target.setCriterium(criterium.get());
+                targetRepository.save(target);
+            }
+            return "redirect:/category";
         }
     }
 

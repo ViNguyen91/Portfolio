@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
 </head>
 <body>
+<h1 style="text-align:center;">All reviews for criterium:</h1>
+<table>
+    <tr>
+        <th>Criterium - </th>
+        <th>Description - </th>
+        <th>Priority - </th>
+        <th>Git Commit Link </th>
+        <th>Target </th>
+        <th> </th>
+    </tr>
+    <tr th:each="review: ${reviewsByCriterium}">
+        <td th:text="${review.criterium.points}" />
+        <td th:text="${review.priority}" />
+        <td th:text="${review.gitCommit}" />
+        <!-- show target that that belongs to this review -->
+        <td th:text="${review.target.description}" />
+        <td><a th:href="@{/review/delete/{reviewId}(reviewId=${review.reviewId})}" class="button">Delete</a></td>
+    </tr>
+</table>
+
+<div>
+    <a th:href="@{/review/add/{criteriumId}}">Add more reviews</a> <!-- werkt niet -->
+</div>
+
+<div>
+    <a th:href="@{/category}">Show all category</a>
+</div>
 
 </body>
 </html>
