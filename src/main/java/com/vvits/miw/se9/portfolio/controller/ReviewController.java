@@ -26,14 +26,16 @@ public class ReviewController {
     ReviewRepository reviewRepository;
 
     @GetMapping("/review/add/{criteriumId}")
-    protected String addReview(@PathVariable("criteriumId") final Integer criteriumId, Model model) {
+    protected String showReviewForm(@PathVariable("criteriumId") final Integer criteriumId, Model model) {
         Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
         if (criterium.isPresent()){
             Review review = new Review();
             review.setCriterium(criterium.get());
-            reviewRepository.save(review);
+            model.addAttribute("review", review);
+            return "reviewForm";
+        }else {
+            return "redirect:/category";
         }
-        return "reviewForm";
     }
 
     @PostMapping({"/review/add"})

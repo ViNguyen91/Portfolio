@@ -25,20 +25,30 @@ public class TargetController {
     @Autowired
     TargetRepository targetRepository;
 
+    @GetMapping("/target/{criteriumId}")
+    protected String showTargets(@PathVariable("criteriumId") final Integer criteriumId, Model model){
+        Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
+        if (criterium.isPresent()) {
+            model.addAttribute("targetsByCriterium", criterium.get().getTargets());
+            model.addAttribute("criteriumId", criteriumId);
+            return "targetOverview";
+        } else {
+            return "redirect:/criteria/{categoryId}" ;
+        }
+    }
+
     @GetMapping("/target/add/{criteriumId}")
-    protected String showTagerForm(@PathVariable("criteriumId") final Integer criteriumId, Model model){
+    protected String showTargetForm(@PathVariable("criteriumId") final Integer criteriumId, Model model){
         Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
         if(criterium.isPresent()){
-            Criterium c = criterium.get();
-            Target t = new Target();
-            t.setCriterium(c);
-            model.addAttribute("criterium", t);
-            return "targetOverview";
+            Target target = new Target();
+            target.setCriterium(criterium.get());
+            model.addAttribute("target", target);
+            return "targetForm";
         }else {
             return "redirect:/category";
         }
     }
-
 
     @PostMapping("/target/add/{criteriumId}")
     protected String saveOrUpdateTarget(@PathVariable("criteriumId") final Integer criteriumId,
@@ -49,6 +59,16 @@ public class TargetController {
             targetRepository.save(target);
             return "redirect:/criteria";
         }
+    }
+
+    @GetMapping("/target/delete/{targetId}")
+    protected String deleteTarget(@PathVariable("targetId") final Integer targetId) {
+        Optional<Target> target = targetRepository.findById(targetId);
+        if (target.isPresent()) {
+            targetRepository.deleteById(targetId);
+            return "targetOverview";
+        }
+        return "forward:/criteria/" + target.get().getCriterium().getCriteriumId();
     }
 
 }
