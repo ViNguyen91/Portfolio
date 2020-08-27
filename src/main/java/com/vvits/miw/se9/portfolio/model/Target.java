@@ -26,6 +26,17 @@ public class Target {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Review review;
 
+    public Target() {
+    }
+
+    public Target(Integer targetId, String description, Date dateCreated, Criterium criterium, Review review) {
+        this.targetId = targetId;
+        this.description = description;
+        this.dateCreated = dateCreated;
+        this.criterium = criterium;
+        this.review = review;
+    }
+
     public Integer getTargetId() {
         return targetId;
     }

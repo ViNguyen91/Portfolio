@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Target Overview</title>
+    <link rel="stylesheet" type="text/css" href="portfolio.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<h1 style="text-align:center;">All targets for criterium:</h1>
+<table>
+    <tr>
+        <th>Criterium - </th>
+        <th>Created Date - </th>
+        <th>Criterium Description - </th>
+        <th>Targets </th>
+        <th> </th>
+    </tr>
+    <tr th:each="target: ${targetsByCriterium}">
+        <td th:text="${target.criterium.points}" />
+        <td th:text="${target.dateCreated}" />
+        <td th:text="${target.description}" />
+        <td><a th:href="@{/target/delete/{targetId}(targetId=${target.targetId})}" class="button">Delete</a></td>
+    </tr>
+</table>
+
+<div>
+    <a th:href="@{/target/add/{criteriumId}(criteriumId=${criteriumId})}">  Add more targets</a>
+</div>
+
+<div>
+    <a th:href="@{/category}">Show all category</a>
+</div>
 
 </body>
 </html>
