@@ -5,10 +5,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
+
     <h1>Create a new criterium</h1>
         <form action="#" th:action="@{/criteria/add}" th:object="${criterium}" method="post">
-            <p>Point (0, 1, 2, 3): <input type="text" th:field="*{points}" /></p>
-            <p>Description: <input type="text" th:field="*{description}" /></p>
+            <p>Point (0, 1, 2, 3): <input type="range" min="0" max="3" th:field="*{points}" /></p>
+            <p>Description: <textarea th:field="*{description}" /></p>
             <p>Category:
                 <select th:field="*{category}">
                     <option th:each="category : ${categoryList}" th:value="${category.categoryId}" th:text="${category.name}"></option>

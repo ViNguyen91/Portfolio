@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -29,7 +31,7 @@ public class CriteriumController {
         Optional<Category> category = categoryRepository.findById(categoryId);
         if (category.isPresent()) {
             model.addAttribute("criteriaByCategory", category.get().getCriteria());
-            model.addAttribute("categoryId", categoryId);
+            model.addAttribute("category", category.get());
             return "criteriumOverview";
         } else {
             return "redirect:/category";
@@ -47,7 +49,9 @@ public class CriteriumController {
     protected String showCriteriaForm2(@PathVariable("categoryId") final Integer categoryId, Model model){
         model.addAttribute("criterium", new Criterium());
         Optional<Category> category = categoryRepository.findById(categoryId);
-        model.addAttribute("categoryList", (category.isPresent()?category.get():null));
+        List<Category> categoryList = new ArrayList<>();
+        categoryList.add(category.get());
+        model.addAttribute("categoryList", categoryList);
         return "criteriumForm";
     }
 
@@ -57,7 +61,7 @@ public class CriteriumController {
             return "criteriumForm";
         } else {
             criteriumRepository.save(criterium);
-            return "redirect:/criteria/" + criterium.getCategory().getCategoryId(); //I want to return to the criteria overview for that category
+            return "redirect:/criteria/" + criterium.getCategory().getCategoryId();
         }
     }
 
@@ -69,5 +73,17 @@ public class CriteriumController {
             return "forward:/criteria/" + criterium.get().getCategory().getCategoryId();
         }
         return "forward:/category";
+    }
+
+    @GetMapping("/criteria/{criteriumId}/overview")
+    protected String showProcess(@PathVariable("criteriumId") final Integer criteriumId, Model model){
+        Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
+        if (criterium.isPresent()) {
+            model.addAttribute("criterium", criterium.get());
+            model.addAttribute("criteriumId", criteriumId);
+            return "processOverview";
+        } else {
+            return "redirect:/criteria/" + criterium.get().getCategory().getCategoryId();
+        }
     }
 }

@@ -6,23 +6,21 @@
     <title> Learning Process</title>  <!--  TODO: combine targetOverview and reviewOverview -->
 </head>
 <body>
-<h1 style="text-align:center;"> Learning process for criterium:</h1>
+<h1> Learning process for criterium:</h1>
 <br>
 
-<h1 style="text-align:center;">All the targets:</h1>
+<h1>All the targets:</h1>
 <table>
     <tr>
         <th>Criterium - </th>
         <th>Deadline - </th>
         <th>Target Description - </th>
-        <th> </th>
-        <th> </th>
     </tr>
-    <tr th:each="target: ${targetsByCriterium}">
+    <tr th:each="target: ${criterium.getTargets()}">
         <td th:text="${target.criterium.points}" />
         <td th:text="${target.deadline}" />
         <td th:text="${target.description}" />
-        <td><a th:href="@{/target/add/{criteriumId}(criteriumId=${criteriumId})}"> Update </a></td>
+        <td><a th:href="@{/target/add/{criteriumId}(criteriumId=${criteriumId})}" class="button">Update</a></td>
         <td><a th:href="@{/target/delete/{targetId}(targetId=${target.targetId})}" class="button">Delete</a></td>
     </tr>
 </table>
@@ -32,7 +30,7 @@
 
 <br>
 
-<h1 style="text-align:center;">All the reviews:</h1>
+<h1>All the reviews:</h1>
 <table>
     <tr>
         <th>Criterium - </th>
@@ -40,9 +38,8 @@
         <th>Priority - </th>
         <th>Git Commit Link - </th>
         <th>Target</th>
-        <th> </th>
     </tr>
-    <tr th:each="review: ${reviewsByCriterium}">
+    <tr th:each="review: ${criterium.getReviews()}">
         <td th:text="${review.criterium.points}" />
         <td th:text="${review.description}" />
         <td th:text="${review.priority}" />

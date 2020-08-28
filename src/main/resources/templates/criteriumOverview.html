@@ -5,33 +5,30 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-    <h1>All criteria for category:</h1>
+    <h1>All criteria for category: <span th:text="${category.name}"> </span></h1>
+
         <table>
             <tr>
                 <th>Category - </th>
                 <th>Point - </th>
                 <th>Criterium Description - </th>
-                <th>Learning Process Overview - </th>
-                <th>Targets Overview - </th>
-                <th>Reviews Overview - </th>
-                <th> </th>
-                <th> </th>
+                <th>Learning Process Overview  </th>
             </tr>
-            <tr th:each="criterium: ${criteriaByCategory}">
+            <tr th:each="criterium: ${criteriaByCategory}"> <!-- TODO: put restriction on points -->
                 <td th:text="${criterium.category.name}" />
                 <td th:text="${criterium.points}" />
                 <td th:text="${criterium.description}" />
-                <td><a th:href="@{/process/{criteriumId}(criteriumId=${criterium.criteriumId})}" class="button">Show learning process</a></td>
-                <td><a th:href="@{/target/{criteriumId}(criteriumId=${criterium.criteriumId})}" class="button">Show targets</a></td>
-                <td><a th:href="@{/review/{criteriumId}(criteriumId=${criterium.criteriumId})}" class="button">Show reviews</a></td>
+                <td><a th:href="@{/criteria/{criteriumId}/overview(criteriumId=${criterium.criteriumId})}" class="button">Show process</a></td>
                 <td><a th:href="@{/criteria/{categoryId}/add(category=${criterium.category.categoryId})}"class="button">Update</a></td>
                 <td><a th:href="@{/criteria/delete/{criteriumId}(criteriumId=${criterium.criteriumId})}" class="button">Delete</a></td>
             </tr>
         </table>
 
     <div>
-        <a th:href="@{/criteria/{id}/add(id=${categoryId})}">Add more criteria</a>
+        <a th:href="@{/criteria/{id}/add/(id=${category.categoryId})}">Add more criteria</a>
     </div>
+
+    <br>
 
     <div>
         <a th:href="@{/category}">Show all categories</a>

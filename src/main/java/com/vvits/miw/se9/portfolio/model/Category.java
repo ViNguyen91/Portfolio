@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Category {
+public class Category implements Comparable<Category>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,5 +40,10 @@ public class Category {
 
     public void setCriteria(List<Criterium> criteria) {
         this.criteria = criteria;
+    }
+
+    @Override
+    public int compareTo(Category o) {
+        return name.compareTo(o.getName());
     }
 }

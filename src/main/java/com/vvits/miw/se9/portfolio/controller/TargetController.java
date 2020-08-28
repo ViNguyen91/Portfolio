@@ -28,7 +28,9 @@ public class TargetController {
     protected String showTargets(@PathVariable("criteriumId") final Integer criteriumId, Model model){
         Optional<Criterium> criterium = criteriumRepository.findById(criteriumId);
         if (criterium.isPresent()) {
-            model.addAttribute("targetsByCriterium", criterium.get().getTargets());
+//            model.addAttribute("targetsByCriterium", criterium.get().getTargets());
+//            model.addAttribute("reviewsByCriterium", criterium.get().getReviews());
+            model.addAttribute("criterium", criterium.get());
             model.addAttribute("criteriumId", criteriumId);
             return "processOverview";
         } else {
@@ -71,9 +73,8 @@ public class TargetController {
         int theId = target.get().getCriterium().getCriteriumId();
         if (target.isPresent()) {
             targetRepository.deleteById(targetId);
-            return "forward:/target/" + theId;
         }
-        return "forward:/target/" + theId;
+        return "redirect:/target/" + theId;
     }
 
 }

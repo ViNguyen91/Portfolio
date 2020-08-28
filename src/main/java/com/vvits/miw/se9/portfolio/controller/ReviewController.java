@@ -78,8 +78,7 @@ public class ReviewController {
         int theId = review.get().getCriterium().getCriteriumId();
         if (review.isPresent()) {
             reviewRepository.deleteById(reviewId);
-            return "redirect:/review/" + theId;
         }
-        return "redirect:/review/" + theId;
+        return "redirect:/criteria/" + theId + "/overview";
     }
 }
