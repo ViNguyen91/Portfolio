@@ -17,14 +17,6 @@ public class Category {
             mappedBy = "category")
     private List<Criterium> criteria;
 
-    public Category() {
-    }
-
-    public Category(Integer categoryId, String name, List<Criterium> criteria) {
-        this.categoryId = categoryId;
-        this.name = name;
-        this.criteria = criteria;
-    }
 
     public Integer getCategoryId() {
         return categoryId;

@@ -2,6 +2,7 @@ package com.vvits.miw.se9.portfolio.controller;
 
 import com.vvits.miw.se9.portfolio.model.Criterium;
 import com.vvits.miw.se9.portfolio.model.Review;
+import com.vvits.miw.se9.portfolio.model.Target;
 import com.vvits.miw.se9.portfolio.repository.CriteriumRepository;
 import com.vvits.miw.se9.portfolio.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ReviewController {
         if (criterium.isPresent()) {
             model.addAttribute("reviewsByCriterium", criterium.get().getReviews());
             model.addAttribute("criteriumId", criteriumId);
-            return "reviewOverview";
+            return "processOverview";
         } else {
             return "redirect:/criteria/" + criterium.get().getCategory().getCategoryId();
         }
@@ -44,7 +45,7 @@ public class ReviewController {
             review.setCriterium(criterium.get());
             model.addAttribute("review", review);
             model.addAttribute("criteriumId", criteriumId);
-            model.addAttribute("targetsByReview", review.getTarget());
+            model.addAttribute("targetsByCriterium", criterium.get().getTargets());
             return "reviewForm";
         }
             return "redirect:/criteria/{categoryId}";
@@ -60,6 +61,12 @@ public class ReviewController {
             if (criterium.isPresent()) {
                 review.setCriterium(criterium.get());
                 reviewRepository.save(review);
+                if (review.getTarget() == null) {
+                    Target target = new Target();
+                    review.setTarget(target);
+                    target.setDescription(review.getDescription());
+                    target.setCriterium(review.getCriterium());
+                }
             }
             return "redirect:/review/" + criteriumId;
         }
@@ -68,10 +75,11 @@ public class ReviewController {
     @GetMapping("/review/delete/{reviewId}")
     protected String deleteReview(@PathVariable("reviewId") final Integer reviewId){
         Optional<Review> review = reviewRepository.findById(reviewId);
+        int theId = review.get().getCriterium().getCriteriumId();
         if (review.isPresent()) {
             reviewRepository.deleteById(reviewId);
-            return "reviewOverview";
+            return "redirect:/review/" + theId;
         }
-        return "redirect:/review/" + review.get().getCriterium().getCriteriumId();
+        return "redirect:/review/" + theId;
     }
 }

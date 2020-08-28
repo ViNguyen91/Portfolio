@@ -2,9 +2,9 @@ package com.vvits.miw.se9.portfolio.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Target {
@@ -13,9 +13,11 @@ public class Target {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer targetId;
 
+    @Column(columnDefinition = "text")
     private String description;
 
-    private Date dateCreated;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate deadline;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "criteriumId", referencedColumnName = "criteriumId", nullable = false)
@@ -25,17 +27,6 @@ public class Target {
     @OneToOne(fetch = FetchType.LAZY, optional = false, mappedBy = "criterium")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Review review;
-
-    public Target() {
-    }
-
-    public Target(Integer targetId, String description, Date dateCreated, Criterium criterium, Review review) {
-        this.targetId = targetId;
-        this.description = description;
-        this.dateCreated = dateCreated;
-        this.criterium = criterium;
-        this.review = review;
-    }
 
     public Integer getTargetId() {
         return targetId;
@@ -53,12 +44,12 @@ public class Target {
         this.description = description;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public LocalDate getDeadline() {
+        return deadline;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
 
     public Criterium getCriterium() {

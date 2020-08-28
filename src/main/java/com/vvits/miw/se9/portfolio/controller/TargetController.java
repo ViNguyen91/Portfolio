@@ -30,7 +30,7 @@ public class TargetController {
         if (criterium.isPresent()) {
             model.addAttribute("targetsByCriterium", criterium.get().getTargets());
             model.addAttribute("criteriumId", criteriumId);
-            return "targetOverview";
+            return "processOverview";
         } else {
             return "redirect:/criteria/" + criterium.get().getCategory().getCategoryId();
         }
@@ -68,11 +68,12 @@ public class TargetController {
     @GetMapping("/target/delete/{targetId}")
     protected String deleteTarget(@PathVariable("targetId") final Integer targetId) {
         Optional<Target> target = targetRepository.findById(targetId);
+        int theId = target.get().getCriterium().getCriteriumId();
         if (target.isPresent()) {
             targetRepository.deleteById(targetId);
-            return "targetOverview";
+            return "forward:/target/" + theId;
         }
-        return "forward:/target/" + target.get().getCriterium().getCriteriumId();
+        return "forward:/target/" + theId;
     }
 
 }

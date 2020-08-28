@@ -12,6 +12,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer reviewId;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     private String priority;
@@ -23,21 +24,9 @@ public class Review {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Criterium criterium;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, mappedBy = "criterium")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "criterium")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Target target;
-
-    public Review() {
-    }
-
-    public Review(Integer reviewId, String description, String priority, String gitCommit, Criterium criterium, Target target) {
-        this.reviewId = reviewId;
-        this.description = description;
-        this.priority = priority;
-        this.gitCommit = gitCommit;
-        this.criterium = criterium;
-        this.target = target;
-    }
 
     public Integer getReviewId() {
         return reviewId;

@@ -14,6 +14,7 @@ public class Criterium {
 
     private int points;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false) //lazy alleen de id
@@ -30,18 +31,6 @@ public class Criterium {
             fetch = FetchType.LAZY,
             mappedBy = "criterium")
     private List<Review> reviews;
-
-    public Criterium() {
-    }
-
-    public Criterium(Integer criteriumId, int points, String description, Category category, List<Target> targets, List<Review> reviews) {
-        this.criteriumId = criteriumId;
-        this.points = points;
-        this.description = description;
-        this.category = category;
-        this.targets = targets;
-        this.reviews = reviews;
-    }
 
     public Integer getCriteriumId() {
         return criteriumId;

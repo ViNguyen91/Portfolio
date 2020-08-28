@@ -10,15 +10,16 @@
 <table>
     <tr>
         <th>Criterium - </th>
-        <th>Created Date - </th>
-        <th>Criterium Description - </th>
-        <th>Targets </th>
+        <th>Deadline - </th>
+        <th>Target Description - </th>
+        <th> </th>
         <th> </th>
     </tr>
     <tr th:each="target: ${targetsByCriterium}">
         <td th:text="${target.criterium.points}" />
-        <td th:text="${target.dateCreated}" />
+        <td th:text="${target.deadline}" />
         <td th:text="${target.description}" />
+        <td><a th:href="@{/target/add/{criteriumId}(criteriumId=${criteriumId})}"> Update </a></td>
         <td><a th:href="@{/target/delete/{targetId}(targetId=${target.targetId})}" class="button">Delete</a></td>
     </tr>
 </table>

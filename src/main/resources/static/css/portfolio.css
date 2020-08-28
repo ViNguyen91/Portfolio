@@ -7,6 +7,10 @@ h1 {
     text-align: center;
 }
 
+.title{
+    text-align: right;
+}
+
 table {
     width: 100%;
     text-align: center;
