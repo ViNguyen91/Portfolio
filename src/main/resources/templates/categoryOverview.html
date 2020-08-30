@@ -10,15 +10,15 @@
 <h2>Overview of existing categories</h2>
 <table>
     <tr th:each="category: ${#lists.sort(allCategories)}">
-        <td><a th:href="@{/criteria/{categoryId}(categoryId=${category.categoryId})}">
-            <span th:text="${category.name}"></span></a></td>
-        <td><a th:href="@{/category/delete/{categoryId}(categoryId=${category.categoryId})}">Delete</a></td>
+        <td><a th:href="@{/category/{categoryId}(categoryId=${category.Id})}">
+            <span th:text="${category.description}"></span></a></td>
+        <td><a th:href="@{/category/delete/{categoryId}(categoryId=${category.Id})}">Delete</a></td>
     </tr>
 </table>
 <br>
 <h2>Create a new category</h2>
 <form action="#" th:action="@{/category/add}" th:object="${category}" method="post">
-    <p>Category name: <input type="text" th:field="*{name}" /></p>
+    <p>Category name: <input type="text" th:field="*{description}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 

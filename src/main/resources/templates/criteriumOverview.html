@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-    <h1>All criteria for category: <span th:text="${category.name}"> </span></h1>
+    <h1>All criteria for category: <span th:text="${category.description}"> </span></h1>
 
         <table>
             <tr>
@@ -14,18 +14,18 @@
                 <th>Criterium Description - </th>
                 <th>Learning Process Overview  </th>
             </tr>
-            <tr th:each="criterium: ${criteriaByCategory}"> <!-- TODO: put restriction on points -->
-                <td th:text="${criterium.category.name}" />
+            <tr th:each="criterium: ${category.getCriteria()}"> <!-- TODO: put restriction on points -->
+                <td th:text="${criterium.category.description}" />
                 <td th:text="${criterium.points}" />
                 <td th:text="${criterium.description}" />
-                <td><a th:href="@{/criteria/{criteriumId}/overview(criteriumId=${criterium.criteriumId})}" class="button">Show process</a></td>
-                <td><a th:href="@{/criteria/{categoryId}/add(category=${criterium.category.categoryId})}"class="button">Update</a></td>
-                <td><a th:href="@{/criteria/delete/{criteriumId}(criteriumId=${criterium.criteriumId})}" class="button">Delete</a></td>
+                <td><a th:href="@{/criterium/{criteriumId}/overview(criteriumId=${criterium.id})}" class="button">Show process</a></td>
+                <td><a th:href="@{/criterium/{criteriumId}(criteriumId=${criterium.id})}" class="button">Update</a></td>
+                <td><a th:href="@{/criterium/{criteriumId}/delete(criteriumId=${criterium.id})}" class="button">Delete</a></td>
             </tr>
         </table>
 
     <div>
-        <a th:href="@{/criteria/{id}/add/(id=${category.categoryId})}">Add more criteria</a>
+        <a th:href="@{/category/{id}/addCriterium(id=${category.id})}">Add more criteria</a>
     </div>
 
     <br>

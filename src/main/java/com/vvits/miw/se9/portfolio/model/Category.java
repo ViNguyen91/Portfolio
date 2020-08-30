@@ -1,49 +1,24 @@
 package com.vvits.miw.se9.portfolio.model;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
-public class Category implements Comparable<Category>{
+public class Category extends BaseModel implements Comparable<Category> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer categoryId;
-
-    private String name;
-
-    @OneToMany( cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "category")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category")
     private List<Criterium> criteria;
-
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Criterium> getCriteria() {
-        return criteria;
-    }
-
-    public void setCriteria(List<Criterium> criteria) {
-        this.criteria = criteria;
-    }
 
     @Override
     public int compareTo(Category o) {
-        return name.compareTo(o.getName());
+        return getDescription().compareTo(o.getDescription());
     }
 }
