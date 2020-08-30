@@ -34,7 +34,8 @@ public class TargetController {
     protected String showTargets(@PathVariable("id") final Integer id, Model model){
         Optional<Target> targetOptional = targetRepository.findById(id);
         if (targetOptional.isPresent()) {
-            return "processOverview";
+            model.addAttribute("target", targetOptional.get());
+            return "targetForm";
         }
         return "redirect:/category/";
     }
@@ -44,7 +45,8 @@ public class TargetController {
         if (result.hasErrors()) {
             return "targetForm";
         } else {
-            return "redirect:/category/";
+            targetRepository.save(target);
+            return "redirect:/criterium/"+target.getCriterium().getId()+"/overview";
         }
     }
 
@@ -54,8 +56,9 @@ public class TargetController {
         int theId = target.get().getCriterium().getId();
         if (target.isPresent()) {
             targetRepository.deleteById(targetId);
+            return "redirect:/criterium/"+target.get().getCriterium().getId()+"/overview";
         }
-        return "redirect:/target/" + theId;
+        return "redirect:/";
     }
 
     @DeleteMapping("/{id}")

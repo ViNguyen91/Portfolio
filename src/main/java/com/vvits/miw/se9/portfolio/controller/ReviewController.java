@@ -32,8 +32,7 @@ public class ReviewController {
     protected String showReviews(@PathVariable("id") final Integer reviewId, Model model) {
         Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
         if (reviewOptional.isPresent()) {
-            model.addAttribute("Criterium", reviewOptional.get().getCriterium());
-            model.addAttribute("Review", reviewOptional.get());
+            model.addAttribute("review", reviewOptional.get());
             return "targetForm.html";
         }
         return "redirect:/";
@@ -64,10 +63,11 @@ public class ReviewController {
     @GetMapping("/{id}/delete")
     protected String deleteReview(@PathVariable("id") final Integer reviewId) {
         Optional<Review> review = reviewRepository.findById(reviewId);
-        int theId = review.get().getCriterium().getId();
         if (review.isPresent()) {
             reviewRepository.deleteById(reviewId);
+            return "redirect:/criterium/"+review.get().getCriterium().getId()+"/overview";
         }
-        return "redirect:/criterium/" + theId + "/overview";
+        return "redirect:/";
+
     }
 }

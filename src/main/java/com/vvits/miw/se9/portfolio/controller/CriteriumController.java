@@ -2,6 +2,8 @@ package com.vvits.miw.se9.portfolio.controller;
 
 import com.vvits.miw.se9.portfolio.model.Category;
 import com.vvits.miw.se9.portfolio.model.Criterium;
+import com.vvits.miw.se9.portfolio.model.Review;
+import com.vvits.miw.se9.portfolio.model.Target;
 import com.vvits.miw.se9.portfolio.repository.CategoryRepository;
 import com.vvits.miw.se9.portfolio.repository.CriteriumRepository;
 import org.springframework.stereotype.Controller;
@@ -92,6 +94,34 @@ public class CriteriumController {
             return "processOverview";
         } else {
             return "redirect:/criteria/" + criterium.get().getCategory().getId();
+        }
+    }
+
+    @GetMapping("/{id}/addTarget")
+    protected String showAddTaget(@PathVariable("id") final Integer id, Model model) {
+        Optional<Criterium>criteriumOptional = criteriumRepository.findById(id);
+        if (criteriumOptional.isPresent()) {
+            model.addAttribute("criterium", criteriumOptional.get());
+            Target target = new Target();
+            target.setCriterium(criteriumOptional.get());
+            model.addAttribute("target", target );
+            return "targetForm";
+        } else {
+            return "redirect:/category";
+        }
+    }
+
+    @GetMapping("/{id}/addReview")
+    protected String showAddReview(@PathVariable("id") final Integer id, Model model) {
+        Optional<Criterium>criteriumOptional = criteriumRepository.findById(id);
+        if (criteriumOptional.isPresent()) {
+            model.addAttribute("criterium", criteriumOptional.get());
+            Review review = new Review();
+            review.setCriterium(criteriumOptional.get());
+            model.addAttribute("review", review );
+            return "reviewForm";
+        } else {
+            return "redirect:/category";
         }
     }
 }

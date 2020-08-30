@@ -6,7 +6,9 @@
 </head>
 <body>
 <h1>Create a new review</h1>
-<form action="#" th:action="@{/review/add/{criteriumId}(criteriumId=${criteriumId})}" th:object="${review}" method="post">
+<form action="#" th:action="@{/review/add/}" th:object="${review}" method="post">
+    <input type="hidden" th:field="*{criterium}" /></p>
+    <input type="id" th:field="*{id}" /></p>
     <p>Description: <input type="text" th:field="*{description}" /></p>
     <p>Priority:
 
@@ -25,7 +27,7 @@
     <p>Target:
         <select th:field="*{target}">
             <option value=""> </option>
-            <option th:each="target : ${targetsByCriterium}" th:value="${target.targetId}"
+            <option th:each="target : ${criterium.getTargets()}" th:value="${target.id}"
                     th:text="${target.description}"></option>
         </select>
     </p>

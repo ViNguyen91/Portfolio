@@ -20,12 +20,12 @@
         <td th:text="${target.criterium.points}" />
         <td th:text="${target.deadline}" />
         <td th:text="${target.description}" />
-        <td><a th:href="@{/target/add/{criteriumId}(criteriumId=${criteriumId})}" class="button">Update</a></td>
-        <td><a th:href="@{/target/delete/{targetId}(targetId=${target.targetId})}" class="button">Delete</a></td>
+        <td><a th:href="@{/target/{targetId}(targetId=${target.id})}" class="button">Update</a></td>
+        <td><a th:href="@{/target/{targetId}/delete(targetId=${target.id})}" class="button">Delete</a></td>
     </tr>
 </table>
 <div>
-    <a th:href="@{/target/add/{criteriumId}(criteriumId=${criteriumId})}">  Add more targets</a>
+    <a th:href="@{/criterium/{criteriumId}/addTarget(criteriumId=${criteriumId})}">  Add more targets</a>
 </div>
 
 <br>
@@ -45,11 +45,12 @@
         <td th:text="${review.priority}" />
         <td th:text="${review.gitCommit}" />
         <td th:text="${review.target}" />
-        <td><a th:href="@{/review/delete/{reviewId}(reviewId=${review.reviewId})}" class="button">Delete</a></td>
+        <td><a th:href="@{/review/{reviewId}(reviewId=${review.id})}" class="button">Update</a></td>
+        <td><a th:href="@{/review/{reviewId}/delete(reviewId=${review.id})}" class="button">Delete</a></td>
     </tr>
 </table>
 <div>
-    <a th:href="@{/review/add/{criteriumId}(criteriumId=${criteriumId})}">Add more reviews</a>
+    <a th:href="@{/criterium/{criteriumId}/addReview(criteriumId=${criteriumId})}">Add more reviews</a>
 </div>
 
 <br>

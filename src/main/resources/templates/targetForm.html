@@ -6,10 +6,13 @@
 </head>
 <body>
 <h1>Create a new target</h1>
-<form action="#" th:action="@{/target/add/{criteriumId}(criteriumId=${criteriumId})}" th:object="${target}" method="post">
+<form action="#" th:action="@{/target/add/}" th:object="${target}" method="post">
+    <input type="hidden" th:field="*{criterium}" /></p>
+    <input type="id" th:field="*{id}" /></p>
     <p>Description: <input type="text" th:field="*{description}" /></p>
     <p>Deadline date: <input type="date" th:field="*{deadline}" /></p>
     <input type="submit" value="Submit" /> <input type="reset" value="Reset" />
 </form>
 </body>
 </html>
+!1
